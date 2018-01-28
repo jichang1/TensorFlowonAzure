@@ -1,0 +1,23 @@
+resource_group: jingchangdlwacsrg
+cluster_name: jingchangdlwacsk8
+cluster_location: southcentralus
+worker_node_num: 2
+master_node_num: 1
+acsagentsize: Standard_NC12
+
+
+azstoragesku: Standard_LRS
+azfilesharequota: 5120
+
+
+UserGroups:
+  DLWSAdmins:
+    Allowed: [ "a@microsoft.com" ]
+    uid : "10000-98789"
+    gid : "1000"
+
+
+WebUIauthorizedGroups: [ "DLWSAdmins" ]
+WebUIadminGroups: [ "DLWSAdmins" ]
+DeployAuthentications : ["Corp"]
+WinbindServers: []
