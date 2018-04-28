@@ -1,0 +1,34 @@
+resource_group: jichangdlwazurerg
+cluster_name: jichangdlwazurek8
+azure_cluster:
+    jichangdlwazurek8:
+        "infra_node_num": 1
+        "worker_node_num": 2
+        "azure_location": "southcentralus"
+        "infra_vm_size": "Standard_D4_v2"
+        "worker_vm_size": "Standard_NC24"
+        "last_scaled_node_num": 0
+
+cloud_config:
+     dev_network:
+        source_addresses_prefixes:
+        - 52.185.0.0/16
+
+DeployAuthentications : ["Corp"]
+UserGroups:
+     DLWSAdmins:
+        Allowed: [ "a@microsoft.com" ]
+        uid : "10000-10022"
+        gid : "1000"
+WebUIauthorizedGroups: [ "DLWSAdmins" ]
+WebUIadminGroups: [ "DLWSAdmins" ]
+WinbindServers: []
+
+
+datasource: MySQL
+mysql_password: password
+webuiport: 3080
+~
+~
+~
+~
