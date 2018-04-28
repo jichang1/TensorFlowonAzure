@@ -52,12 +52,6 @@ spec:
         volumeMounts:
         - mountPath: /usr/local/nvidia
           name: nvidia-driver
-        - mountPath: /joy
-          name: shared
-        - mountPath: /imagenetdata
-          name: imagenet
-        - mountPath: /imagenetazurefiles
-          name: imagenetazure
         - mountPath: /etc/resolv.conf
           name: resolv
         securityContext:
@@ -65,23 +59,12 @@ spec:
           capabilities:
              add: ["SYS_ADMIN"]
       nodeSelector:
-        nodedesc: gpunode0
+        FragmentGPUJob: active
       volumes:
       - name: nvidia-driver
         hostPath:
           path: /opt/nvidia-driver/current
-      - name: shared
-        hostPath:
-          path: /home/dlwsadmin
-      - name: imagenet
-        hostPath:
-          path: /mnt/imagenet-data
       - name: resolv
         hostPath:
           path: /etc/resolv.conf
-      - name: imagenetazure
-        azureFile:
-          secretName: azurefile-secret
-          shareName: imagenet
-          readOnly: false
 ---

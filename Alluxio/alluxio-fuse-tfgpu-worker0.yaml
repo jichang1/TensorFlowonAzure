@@ -51,19 +51,13 @@ spec:
         - name: ALLUXIO_UNDERFS_ADDRESS
           value: "wasb://$yourcontainername$@$yourstorageaccountname$.blob.core.windows.net/"
         - name: FS_AZURE_ACCOUNT_KEY_$yourstorageaccountname$_BLOB_CORE_WINDOWS_NET
-         value: $yourstorageaccountkey$
+          value: $yourstorageaccountkey$
         resources:
           limits:
             alpha.kubernetes.io/nvidia-gpu: 1
         volumeMounts:
         - mountPath: /usr/local/nvidia
           name: nvidia-driver
-        - mountPath: /joy
-          name: shared
-        - mountPath: /imagenetdata
-          name: imagenet
-        - mountPath: /imagenetazurefiles
-          name: imagenetazure
         - mountPath: /opt/ramdisk
           name: ramdisk
         - mountPath: /etc/resolv.conf
@@ -73,26 +67,15 @@ spec:
           capabilities:
             add: ["SYS_ADMIN"]
       nodeSelector:
-        nodedesc: gpunode1
+        FragmentGPUJob: active
       volumes:
       - name: nvidia-driver
         hostPath:
           path: /opt/nvidia-driver/current
-      - name: shared
-        hostPath:
-          path: /home/dlwsadmin
-      - name: imagenet
-        hostPath:
-          path: /mnt/imagenet-data
       - name: ramdisk
         hostPath:
           path: /mnt/ramdisk
       - name: resolv
         hostPath:
           path: /etc/resolv.conf
-      - name: imagenetazure
-        azureFile:
-          secretName: azurefile-secret
-          shareName: imagenet
-          readOnly: false
 ---
